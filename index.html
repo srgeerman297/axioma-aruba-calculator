@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AXIOMA | Amazon & SHEIN Aruba All-In Cost Calculator</title>
+  <style>
+    :root{
+      --blue:#0A4FB4;--blue-dark:#073B88;--blue-soft:#EAF2FF;--bg:#F4F7FC;--card:#fff;--soft:#F8FBFF;--text:#14243A;--muted:#66758A;--line:#DCE7F5;--green:#137A43;--green-soft:#EAF7EF;--red:#B42318;--red-soft:#FDECEC;--amber:#966800;--amber-soft:#FFF7E3;--purple:#6B3AB8;--purple-soft:#F2ECFF;--shadow:0 18px 44px rgba(10,79,180,.12);--radius-xl:28px;--radius-lg:20px;--radius-md:14px
+    }
+    *{box-sizing:border-box} html,body{margin:0;padding:0}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(10,79,180,.12),transparent 28%),linear-gradient(180deg,#FCFDFF 0%,#EFF5FF 100%);min-height:100vh}
+    .page{max-width:1280px;margin:0 auto;padding:28px 18px 56px}
+    .hero{position:relative;overflow:hidden;color:white;background:linear-gradient(135deg,var(--blue) 0%,#0B65D4 100%);border-radius:var(--radius-xl);padding:30px;box-shadow:var(--shadow);margin-bottom:22px}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.10);pointer-events:none}.hero:before{width:300px;height:300px;top:-130px;right:-58px}.hero:after{width:190px;height:190px;bottom:-74px;right:245px}.hero-content{position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}h1{margin:14px 0 10px;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-.035em}.hero p{max-width:980px;margin:0;color:rgba(255,255,255,.88);line-height:1.62;font-size:16px}.hero-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:24px}.hero-stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:14px}.hero-stat .k{font-size:12px;color:rgba(255,255,255,.74)}.hero-stat .v{font-size:22px;font-weight:850;margin-top:4px}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.tab-btn{background:#fff;color:var(--blue-dark);border:1px solid #C9D8EE;border-radius:999px;padding:12px 18px;font-weight:900;box-shadow:0 8px 18px rgba(10,79,180,.08)}.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .grid{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(400px,.97fr);gap:18px;align-items:start}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow);overflow:hidden}.card-body{padding:22px}.card-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:18px}h2{margin:0;font-size:24px;letter-spacing:-.02em}h3{margin:0 0 6px;font-size:16px}p{margin:0}.muted{color:var(--muted);line-height:1.55;font-size:13px}.badge{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;border-radius:999px;padding:7px 11px;background:var(--blue-soft);color:var(--blue-dark);font-size:12px;font-weight:850}.badge.green{background:var(--green-soft);color:var(--green)}.badge.purple{background:var(--purple-soft);color:var(--purple)}.section{background:var(--soft);border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;margin-top:14px}.section-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field.full{grid-column:1/-1}label{display:block;font-size:12px;color:var(--muted);font-weight:850;margin-bottom:7px}
+    input,select,textarea{width:100%;border:1px solid #CAD8EA;border-radius:14px;background:#fff;color:var(--text);padding:12px 12px;font-size:14px;outline:none;transition:border-color .15s ease,box-shadow .15s ease}textarea{min-height:120px;resize:vertical;line-height:1.45;font-family:inherit}input[type="file"]{padding:10px;background:#fff}select{appearance:auto;-webkit-appearance:menulist;cursor:pointer;padding-right:36px;background-color:#fff}select.productType,select#shippingMode,select#packageEstimateMode,select#calculationMode{font-weight:760;border-color:#AFC6E6;background:#fff}select:focus,input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(10,79,180,.10)}.help{margin-top:6px;color:var(--muted);font-size:11px;line-height:1.45}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}button{border:0;border-radius:14px;padding:11px 14px;font-weight:850;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}button:hover{transform:translateY(-1px)}.btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 20px rgba(10,79,180,.20)}.btn-outline{background:#fff;color:var(--blue-dark);border:1px solid #C9D8EE}.btn-danger{background:var(--red-soft);color:var(--red)}.btn-small{padding:8px 10px;font-size:12px;border-radius:11px}.btn-inline{padding:9px 12px;white-space:nowrap}
+    .product-list,.package-list{display:grid;gap:12px}.product-card,.package-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.product-head,.package-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.product-title,.package-title{font-weight:900}.product-grid{display:grid;grid-template-columns:1.25fr 1.45fr .45fr .7fr .45fr;gap:10px;align-items:end}.lookup-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-bottom:10px}.package-grid{display:grid;grid-template-columns:.65fr 1fr 1fr 1fr .85fr;gap:10px;align-items:end}.estimate-grid{display:grid;grid-template-columns:1.25fr .45fr .78fr .7fr .9fr;gap:10px;align-items:start}.estimate-note{font-size:11px;color:var(--muted);line-height:1.35;margin-top:4px}.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.rate-badge{display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--blue-soft);color:var(--blue-dark);min-height:42px;font-weight:900;border:1px solid #C8DAF4}.rate-badge.warn{background:var(--amber-soft);color:var(--amber);border-color:#F1D78E}.mini-label{font-size:11px;font-weight:850;color:var(--muted);margin-bottom:6px}.suggestion{margin-top:8px;font-size:12px;line-height:1.45;padding:9px 10px;border-radius:12px;background:#F7FAFF;border:1px solid var(--line);color:#41536E}.suggestion.good{background:var(--green-soft);border-color:#BFE3CF;color:#245B3A}.suggestion.warn{background:var(--amber-soft);border-color:#F1D78E;color:#6E4F00}.category-status{margin-top:8px;font-size:12px;line-height:1.45;padding:9px 10px;border-radius:12px;background:#fff;border:1px solid #C8DAF4;color:#173A67}.category-status strong{color:var(--blue-dark)}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric{border:1px solid var(--line);background:#fff;border-radius:20px;padding:15px}.metric.highlight{background:linear-gradient(135deg,#FFFFFF 0%,#EEF5FF 100%);border-color:#BFD4F3}.metric.good{background:var(--green-soft);border-color:#BFE3CF}.metric.bad{background:var(--red-soft);border-color:#F6C9C5}.metric.purple{background:var(--purple-soft);border-color:#D8C7FF}.metric .k{color:var(--muted);font-size:12px;font-weight:800}.metric .v{font-size:26px;font-weight:900;letter-spacing:-.025em;margin-top:6px}.metric .s{color:var(--muted);font-size:12px;line-height:1.45;margin-top:5px}.result-pill{display:inline-flex;align-items:center;border-radius:999px;padding:9px 13px;font-weight:900;background:var(--blue-soft);color:var(--blue-dark)}.pill-good{background:var(--green-soft);color:var(--green)}.pill-bad{background:var(--red-soft);color:var(--red)}.pill-warn{background:var(--amber-soft);color:var(--amber)}.table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-lg);background:#fff}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle;font-size:13px}th{background:#F1F6FE;color:#354967;font-size:11px;text-transform:uppercase;letter-spacing:.05em}tbody tr:last-child td{border-bottom:0}.fine-print{margin-top:14px;color:var(--muted);font-size:11px;line-height:1.55}.switch-line{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 12px}.switch-line input{width:auto}.advanced{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px}.advanced summary{cursor:pointer;font-weight:900;color:var(--blue-dark)}.advanced-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.rule-note{margin-top:8px;font-size:12px;line-height:1.45;color:#41536E;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 10px}.cart-import-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}.cart-status{margin-top:10px;font-size:12px;line-height:1.45;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);color:#41536E}.cart-status.good{background:var(--green-soft);border-color:#BFE3CF;color:#245B3A}.cart-status.warn{background:var(--amber-soft);border-color:#F1D78E;color:#6E4F00}.cart-status.bad{background:var(--red-soft);border-color:#F6C9C5;color:#7A1B12}.local-compare-section{background:linear-gradient(135deg,#FFFFFF 0%,#EEF5FF 100%);border-color:#BFD4F3}.local-compare-section input{font-weight:850;font-size:16px}.local-compare-callout{margin-top:10px;font-size:12px;line-height:1.45;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #C8DAF4;color:#173A67}.source-panel{display:none}.source-panel.active{display:block}.source-label-amazon{color:#B86100}.source-label-shein{color:#5B20A6}.summary-banner{background:#fff;border:1px dashed #BFD4F3;border-radius:18px;padding:14px;margin-top:14px;color:#27415F;line-height:1.5;font-size:13px}.source-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tag{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:900;background:#EEF5FF;color:#073B88}.tag.warn{background:#FFF7E3;color:#7A5200}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics,.source-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.field-grid,.product-grid,.auto-panel,.lookup-row,.package-grid,.estimate-grid,.method-grid,.advanced-grid{grid-template-columns:1fr}.btn-inline{width:100%}}
+    @media(max-width:560px){.page{padding:14px 10px 40px}.hero{padding:22px;border-radius:22px}.card-body{padding:16px}.card-head,.section-title{flex-direction:column}.hero-stats,.metrics,.source-summary-grid{grid-template-columns:1fr}table{min-width:760px}.metric .v{font-size:24px}.product-head,.package-head{align-items:flex-start}.hero p{font-size:14px}.tab-btn{width:100%}}
+    @media print{body{background:white}.page{max-width:none;padding:0}.hero,.card{box-shadow:none}.toolbar,.btn-danger,.btn-outline,.tabs{display:none}.source-panel{display:block}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">AXIOMA • Aruba all-in landed-cost calculator</div>
+        <h1>Amazon + SHEIN Aruba Price Comparison</h1>
+        <p>Use the Amazon tab for Amazon checkout/cart text and the SHEIN tab for SHEIN invoices. The calculator estimates supplier payment, Aruba Customs, GP Cargo freight/clearance, DTZ checks for wireless equipment, and the full all-in Aruba pickup cost.</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="k">Amazon/SHEIN FX</div><div class="v">1.81</div></div>
+          <div class="hero-stat"><div class="k">Customs FX</div><div class="v">1.79</div></div>
+          <div class="hero-stat"><div class="k">Insurance/CIF</div><div class="v">1.5%</div></div>
+          <div class="hero-stat"><div class="k">Border tax</div><div class="v">4% + 3%</div></div>
+          <div class="hero-stat"><div class="k">DTZ trigger</div><div class="v">Auto</div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="amazon" type="button">Amazon tab</button>
+      <button class="tab-btn" data-tab="shein" type="button">SHEIN tab</button>
+      <button class="tab-btn" data-tab="settings" type="button">Shared GP Cargo settings</button>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-body">
+          <div class="card-head">
+            <div>
+              <h2>Inputs</h2>
+              <p class="muted">Enter Amazon and SHEIN separately. Turn on combined-shipment mode when GP Cargo will clear the packages together.</p>
+            </div>
+            <div class="badge">Two-tab version</div>
+          </div>
+
+          <div id="amazonPanel" class="source-panel active">
+            <div class="section">
+              <div class="section-title">
+                <div><h3>1. Import Amazon cart / checkout</h3><p class="muted">Paste Amazon checkout/cart text. The calculator imports item names, USD prices, shipping, tax, AWG total, and the Amazon exchange rate where visible.</p></div>
+                <div class="badge">Amazon</div>
+              </div>
+              <div class="field-grid">
+                <div class="field full">
+                  <label for="amazonTextInput">Paste Amazon cart / checkout text</label>
+                  <textarea id="amazonTextInput" placeholder="Paste Amazon checkout/cart text here..."></textarea>
+                </div>
+              </div>
+              <div class="cart-import-actions">
+                <button class="btn-primary" id="importAmazonBtn" type="button">Import Amazon text</button>
+                <button class="btn-outline" id="clearAmazonTextBtn" type="button">Clear Amazon text</button>
+              </div>
+              <div id="amazonImportStatus" class="cart-status">No Amazon cart imported yet. You can still enter items manually below.</div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">
+                <div><h3>2. Amazon product lines</h3><p class="muted">Use one line per product type. For mixed orders, separate items with different duty categories.</p></div>
+                <button class="btn-outline btn-small add-row" data-source="amazon" type="button">Add Amazon line</button>
+              </div>
+              <div id="amazonProductList" class="product-list"></div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">
+                <div><h3>3. Amazon order summary</h3><p class="muted">Exact AWG order total overrides the 1.81 estimate for the supplier payment side.</p></div>
+              </div>
+              <div class="field-grid">
+                <div class="field"><label for="amazonShipUsd">Amazon shipping & handling (USD)</label><input id="amazonShipUsd" type="number" min="0" step="0.01"></div>
+                <div class="field"><label for="amazonTaxUsd">Amazon estimated tax (USD)</label><input id="amazonTaxUsd" type="number" min="0" step="0.01"></div>
+                <div class="field full"><label for="amazonFreeShipping">Free Shipping</label><div class="switch-line"><input id="amazonFreeShipping" type="checkbox"><span>Amazon deducted “Free Shipping” for the same Shipping & Handling amount.</span></div></div>
+                <div class="field"><label for="amazonExactAwg">Exact Amazon order total in AWG (optional)</label><input id="amazonExactAwg" type="number" min="0" step="0.01"></div>
+                <div class="field"><label for="amazonLocalAwg">Comparable local Aruba price / estimate (Afl)</label><input id="amazonLocalAwg" type="number" min="0" step="0.01" placeholder="Optional"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="sheinPanel" class="source-panel">
+            <div class="section">
+              <div class="section-title">
+                <div><h3>1. Import SHEIN invoice</h3><p class="muted">Paste SHEIN invoice text. The calculator imports item subtotal, sales tax, grand total, and clothing items where visible.</p></div>
+                <div class="badge purple">SHEIN</div>
+              </div>
+              <div class="field-grid">
+                <div class="field full">
+                  <label for="sheinTextInput">Paste SHEIN invoice text</label>
+                  <textarea id="sheinTextInput" placeholder="Paste SHEIN invoice text here..."></textarea>
+                </div>
+              </div>
+              <div class="cart-import-actions">
+                <button class="btn-primary" id="importSheinBtn" type="button">Import SHEIN text</button>
+                <button class="btn-outline" id="clearSheinTextBtn" type="button">Clear SHEIN text</button>
+              </div>
+              <div id="sheinImportStatus" class="cart-status">No SHEIN invoice imported yet. You can still enter items manually below.</div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">
+                <div><h3>2. SHEIN product lines</h3><p class="muted">SHEIN clothing defaults to the clothing category at 6%, but you can override the category if the item is not clothing.</p></div>
+                <button class="btn-outline btn-small add-row" data-source="shein" type="button">Add SHEIN line</button>
+              </div>
+              <div id="sheinProductList" class="product-list"></div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">
+                <div><h3>3. SHEIN invoice summary</h3><p class="muted">Use the SHEIN invoice amounts. Exact AWG total is optional if your card statement shows the actual Afl charge.</p></div>
+              </div>
+              <div class="field-grid">
+                <div class="field"><label for="sheinShipUsd">SHEIN shipping fee (USD)</label><input id="sheinShipUsd" type="number" min="0" step="0.01"></div>
+                <div class="field"><label for="sheinHandlingUsd">SHEIN handling fee (USD)</label><input id="sheinHandlingUsd" type="number" min="0" step="0.01"></div>
+                <div class="field"><label for="sheinTaxUsd">SHEIN sales tax (USD)</label><input id="sheinTaxUsd" type="number" min="0" step="0.01"></div>
+                <div class="field"><label for="sheinExactAwg">Exact SHEIN card charge in AWG (optional)</label><input id="sheinExactAwg" type="number" min="0" step="0.01"></div>
+                <div class="field full"><label for="sheinLocalAwg">Comparable local Aruba price / estimate (Afl)</label><input id="sheinLocalAwg" type="number" min="0" step="0.01" placeholder="Optional"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="settingsPanel" class="source-panel">
+            <div class="section">
+              <div class="section-title">
+                <div><h3>Shared GP Cargo / Customs settings</h3><p class="muted">These settings apply to both Amazon and SHEIN when the packages are cleared together.</p></div>
+                <div class="badge green">Shared</div>
+              </div>
+              <div class="field-grid">
+                <div class="field full">
+                  <label for="calculationMode">Shipment calculation mode</label>
+                  <select id="calculationMode">
+                    <option value="combined">Combined shipment: Amazon + SHEIN cleared together by GP Cargo</option>
+                    <option value="separate">Separate shipments: calculate Amazon and SHEIN as separate GP Cargo pickups</option>
+                  </select>
+                  <div class="help">Use combined when GP Cargo clears items from both websites under the same B/L or pickup invoice, like your iPhones + SHEIN invoice.</div>
+                </div>
+                <div class="field"><label for="packageEstimateMode">Package size method</label><select id="packageEstimateMode"><option value="auto">Auto-estimate from product lines</option><option value="manual">Manual package dimensions</option></select></div>
+                <div class="field"><label for="shippingMode">GP Cargo charge mode</label><select id="shippingMode"><option value="auto">Auto: invoice-style small B/L / LCL / SPS as applicable</option><option value="invoiceSmall">Force observed small B/L: USD 20 ocean + USD 15 repack</option><option value="lcl">Force LCL by CFT brackets</option><option value="sps">Force Small Package Service (SPS)</option></select></div>
+                <div class="field"><label for="dtzMode">DTZ handling</label><select id="dtzMode"><option value="auto">Auto-apply when radio/frequency equipment is present</option><option value="forceOn">Force DTZ fee</option><option value="forceOff">Do not apply DTZ fee</option></select></div>
+                <div class="field"><label for="dtzFeeAwg">DTZ handling fee (Afl)</label><input id="dtzFeeAwg" type="number" min="0" step="0.01"></div>
+              </div>
+              <div class="rule-note" id="settingsRuleNote"></div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">
+                <div><h3>Manual package dimensions</h3><p class="muted">Only used if package size method is set to manual.</p></div>
+                <button class="btn-outline btn-small" id="addPackageBtn" type="button">Add manual package</button>
+              </div>
+              <div id="packageList" class="package-list"></div>
+            </div>
+          </div>
+
+          <div class="summary-banner">
+            <strong>Rule:</strong> Customs duties are product-specific. BBO/BAVP and BAZV are calculated on Customs value. GP Cargo service charges are separate. DTZ is only a conditional telecom/frequency-equipment charge, not a general handling fee.
+          </div>
+
+          <div class="toolbar">
+            <button class="btn-primary" id="loadRecentInvoiceBtn" type="button">Load iPhones + SHEIN example</button>
+            <button class="btn-outline" id="loadAmazonCartBtn" type="button">Load Amazon cart example</button>
+            <button class="btn-outline" id="clearAllBtn" type="button">Clear all</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-body">
+          <div class="card-head">
+            <div><h2>Results</h2><p class="muted">Full all-in Aruba estimate, separated by supplier, Customs, and GP Cargo.</p></div>
+            <div id="decisionPill" class="result-pill">—</div>
+          </div>
+
+          <div class="metrics">
+            <div class="metric highlight"><div class="k">Combined all-in Aruba cost</div><div class="v" id="combinedTotal">Afl 0.00</div><div class="s">Supplier payments + Customs + GP Cargo.</div></div>
+            <div class="metric"><div class="k">GP Cargo pickup estimate</div><div class="v" id="gpCargoTotal">Afl 0.00</div><div class="s">Ocean/freight + clearance + DTZ + 7% tax on taxable service lines.</div></div>
+            <div class="metric"><div class="k">Aruba Customs pass-through</div><div class="v" id="customsTotal">Afl 0.00</div><div class="s">Import duty + BBO/BAVP + BAZV.</div></div>
+            <div class="metric"><div class="k">Supplier payments</div><div class="v" id="supplierTotal">Afl 0.00</div><div class="s">Exact AWG totals when entered; otherwise estimated at 1.81.</div></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><div><h3>Website split</h3><p class="muted">Allocated full all-in cost by website.</p></div></div>
+            <div class="source-summary-grid">
+              <div class="metric"><div class="k"><span class="source-label-amazon">Amazon</span> all-in cost</div><div class="v" id="amazonAllIn">Afl 0.00</div><div class="s" id="amazonAllInNote">—</div></div>
+              <div class="metric purple"><div class="k"><span class="source-label-shein">SHEIN</span> all-in cost</div><div class="v" id="sheinAllIn">Afl 0.00</div><div class="s" id="sheinAllInNote">—</div></div>
+            </div>
+          </div>
+
+          <div class="section local-compare-section">
+            <div class="section-title"><div><h3>Local price decision</h3><p class="muted">Enter the comparable Aruba local price here. These fields drive the automatic “online is cheaper / buy locally” decision immediately.</p></div><div class="badge">Auto decision</div></div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="decisionAmazonLocalAwg">Amazon comparable local Aruba price / estimate (Afl)</label>
+                <input id="decisionAmazonLocalAwg" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Example: 750.00" />
+                <div class="help">Use this when the Amazon items can be bought locally in Aruba.</div>
+              </div>
+              <div class="field">
+                <label for="decisionSheinLocalAwg">SHEIN comparable local Aruba price / estimate (Afl)</label>
+                <input id="decisionSheinLocalAwg" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Example: 125.00" />
+                <div class="help">Use this for the comparable local price of the SHEIN clothing/items.</div>
+              </div>
+            </div>
+            <div class="local-compare-callout">These result-side local price fields are synced with the fields in the Amazon and SHEIN tabs. Leave a field blank if there is no reliable local comparison.</div>
+            <div class="metrics" style="margin-top:12px">
+              <div class="metric highlight" id="combinedDecisionCard"><div class="k">Combined online vs local decision</div><div class="v" id="combinedDecisionText">—</div><div class="s" id="combinedDecisionNote">Enter comparable local prices to activate the combined decision.</div></div>
+              <div class="metric" id="amazonDecisionCard"><div class="k">Amazon vs local decision</div><div class="v" id="amazonDecisionText">—</div><div class="s" id="amazonDecisionNote">Enter an Amazon local comparison price.</div></div>
+              <div class="metric purple" id="sheinDecisionCard"><div class="k">SHEIN vs local decision</div><div class="v" id="sheinDecisionText">—</div><div class="s" id="sheinDecisionNote">Enter a SHEIN local comparison price.</div></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><div><h3>Calculation breakdown</h3><p class="muted">Automatic assumptions are shown here for transparency.</p></div></div>
+            <div class="table-wrap"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody id="breakdownRows"></tbody></table></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><div><h3>Per-product Customs calculation</h3><p class="muted">Shows the actual effect of the selected Aruba Customs category.</p></div></div>
+            <div class="table-wrap"><table><thead><tr><th>Source</th><th>Item</th><th>USD</th><th>Product type</th><th>Duty %</th><th>Customs value</th><th>Duty</th><th>BBO/BAVP</th><th>BAZV</th><th>Total Customs</th></tr></thead><tbody id="itemResultRows"></tbody></table></div>
+          </div>
+
+          <p class="fine-print">Estimator only. Aruba Customs and GP Cargo can classify or charge shipments differently depending on exact HS code, package dimensions, declared value, supporting documents, DTZ requirements, and shipment details.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const STORAGE_KEY='axioma_amazon_shein_aruba_all_in_v1';
+      const AMAZON_FX=1.81, SHEIN_FX=1.81, CUSTOMS_FX=1.79, INSURANCE_PCT=1.5, BBO_RATE=4, BAZV_RATE=3, GP_BILLING_FX=1.825, CFT_PER_CBM=35.3146667;
+
+      const DUTIES=[
+        {key:'smartphone',label:'Mobile phone / smartphone',rate:12,hs:'8517.1200',dtz:true,keywords:['iphone','mobile phone','cell phone','smartphone','unlocked phone','android phone','samsung galaxy','google pixel']},
+        {key:'computer',label:'Computers / laptops / iMac / data-processing machines',rate:12,hs:'8471',dtz:false,keywords:['imac','macbook','laptop','notebook','desktop computer','all in one','all-in-one','computer','chromebook','mini pc','mac mini','desktop pc']},
+        {key:'usb_dock',label:'USB-C docking station / hub / computer adapter',rate:12,hs:'8471 / 8473 / 8517',dtz:false,keywords:['usb c docking','usb-c docking','docking station','usb c hub','usb-c hub','usb hub','ethernet hub','multiport adapter','type c hub']},
+        {key:'smart_cards',label:'NFC / RFID smart cards',rate:12,hs:'8523.5200',dtz:false,review:true,keywords:['nfc','ntag','ntag216','nfc card','nfc cards','smart card','smart cards','rfid']},
+        {key:'computer_parts',label:'Computer accessories / SSD / chargers / adapters',rate:12,hs:'8473 / 8504',dtz:false,keywords:['ssd','solid state drive','hard drive','portable drive','external drive','memory card','charger','charging cable','adapter','power adapter','static converter','keyboard','mouse','laptop stand','screen protector']},
+        {key:'radio_remote',label:'Radio remote-control apparatus / gate remote',rate:12,hs:'8526.9200',dtz:true,keywords:['remote control','remote controls','transmitter','gate opener','garage remote','gate remote','433.92mhz','radio remote']},
+        {key:'router_wifi',label:'Router / Wi-Fi / modem / wireless network equipment',rate:12,hs:'8517',dtz:true,keywords:['wifi router','wi-fi router','router','modem','access point','wireless access point','mesh wifi','mesh wi-fi','lte router','5g router']},
+        {key:'monitor',label:'Monitor / video screen / camera display',rate:12,hs:'8528',dtz:false,keywords:['monitor','display','screen','vlog screen','selfie monitor','camera monitor','video monitor','portable monitor']},
+        {key:'appliance_parts',label:'Vacuum / appliance replacement parts',rate:22,hs:'8508 / parts',dtz:false,keywords:['roomba','irobot','vacuum parts','vacuum replacement','replacement parts kit','filter brush','side brush','beater brush','vacuum cleaner parts','appliance parts']},
+        {key:'electronics_other',label:'Other electronics / electrical parts',rate:12,hs:'Various',dtz:false,keywords:['electronic','electronics','electrical','device','gadget','camera accessory','phone holder','phone mount','phone clip','vlog kit','power bank','battery charger']},
+        {key:'clothing',label:'Clothing / apparel',rate:6,hs:'6203 / 6204 / 6206',dtz:false,keywords:['shirt','shirts','t shirt','t-shirt','tshirt','tee','tee shirt','polo','top','tank top','short sleeve','long sleeve','pants','trousers','jeans','shorts','blouse','dress','romper','pajama','pyjama','clothing','apparel','outfit','hoodie','sweater','jacket','coat','socks','underwear','swimsuit','bathing suit','girl clothing','boy clothing','tween girl','tween boy','casual cartoon','round neck']},
+        {key:'footwear',label:'Footwear / shoes / sandals',rate:6,hs:'6403 / 6404',dtz:false,keywords:['shoes','shoe','sneaker','sneakers','sandals','slippers','boots','footwear']},
+        {key:'toys',label:'Toys / children’s toys',rate:6,hs:'9503',dtz:false,keywords:['toy','toys','tricycle','scooter','kids scooter','children toy','puzzle','lego','doll','playset','game for kids']},
+        {key:'hardware_hooks',label:'Hooks / brackets / small hardware',rate:6,hs:'8302',dtz:false,keywords:['hook','hooks','bracket','brackets','wall mount','speaker holder','holder mount','shelf bracket','coat rack','hanger hardware','mounting bracket']},
+        {key:'bags',label:'Bags / backpacks',rate:12,hs:'4202',dtz:false,keywords:['backpack','bag','handbag','purse','luggage','suitcase','briefcase','rucksack','travel bag','laptop bag']},
+        {key:'stickers',label:'Stickers / transfers',rate:12,hs:'4908',dtz:false,keywords:['sticker','stickers','decal','decals','transfer','transfers','vinyl sticker']},
+        {key:'jewelry',label:'Fashion jewelry / bijouterie',rate:12,hs:'7117',dtz:false,keywords:['jewelry','jewellery','bracelet','necklace','earrings','earring','ring','bijouterie','fashion jewelry']},
+        {key:'fabric_backdrop',label:'Textile backdrops / made-up textile articles',rate:12,hs:'6307',dtz:false,keywords:['backdrop','background','photo background','photography background','photoshoot','microfiber backdrop','textile backdrop','portrait background']},
+        {key:'foam_panels',label:'Acoustic / insulation panels',rate:12,hs:'6806',dtz:false,keywords:['acoustic panel','acoustic panels','soundproof','sound proof','soundproofing','foam panel','foam panels','insulation panel','sound absorbing']},
+        {key:'furniture_wood',label:'Wood furniture / wall shelves',rate:22,hs:'9403',dtz:false,keywords:['wood shelf','wood shelves','wood furniture','wall plank','floating shelf','floating shelves','wall shelf','wall shelves']},
+        {key:'furniture_plastic',label:'Plastic furniture / shoe rack / storage rack',rate:22,hs:'9403',dtz:false,keywords:['shoe rack','storage rack','plastic furniture','organizer rack','shelving rack','plastic shelf','plastic shelves']},
+        {key:'appliances',label:'Household appliance',rate:22,hs:'8414 / 8508',dtz:false,keywords:['fan','ventilator','vacuum cleaner','vacuum','air fryer','blender','mixer','appliance','household appliance','heater','humidifier','dehumidifier']},
+        {key:'cosmetics',label:'Cosmetics / personal-care items',rate:3,hs:'3304',dtz:false,keywords:['cosmetic','cosmetics','makeup','make up','skin care','skincare','serum','cream','face cream','lotion','moisturizer','sunscreen','lipstick','foundation','mascara','shampoo','conditioner','personal care']},
+        {key:'medical_orthopedic',label:'Orthopaedic brace / splint',rate:0,hs:'9021.1000',dtz:false,keywords:['carpal tunnel','orthopedic brace','orthopaedic brace','wrist brace','metal splint','support brace','tendinitis','arthritis support']},
+        {key:'medical_textile',label:'Generic textile support sleeve/wrap',rate:12,hs:'6307',dtz:false,keywords:['compression sleeve','support sleeve','wrist wrap','ankle wrap','knee sleeve']},
+        {key:'sewing_machine',label:'Household sewing machine',rate:12,hs:'8452.1000',dtz:false,keywords:['sewing machine','stitch sewing machine','brother rlx','brother sewing','textile machine']},
+        {key:'books',label:'Books / printed books',rate:0,hs:'4901',dtz:false,keywords:['book','books','paperback','hardcover','textbook','printed book','novel','workbook']},
+        {key:'manual0',label:'Manual: 0%',rate:0,hs:'manual',dtz:false,keywords:[]},{key:'manual3',label:'Manual: 3%',rate:3,hs:'manual',dtz:false,keywords:[]},{key:'manual6',label:'Manual: 6%',rate:6,hs:'manual',dtz:false,keywords:[]},{key:'manual12',label:'Manual: 12%',rate:12,hs:'manual',dtz:false,keywords:[]},{key:'manual22',label:'Manual: 22%',rate:22,hs:'manual',dtz:false,keywords:[]}
+      ];
+
+      const DEFAULT_STATE={
+        activeTab:'amazon', calculationMode:'combined', packageEstimateMode:'auto', shippingMode:'auto', dtzMode:'auto', dtzFeeAwg:25, packages:[{qty:1,length:12,width:10,height:6}],
+        amazon:{shipUsd:0,taxUsd:0,exactAwg:0,freeShipping:false,localAwg:0,items:[{name:'Amazon item',lookup:'',category:'manual12',qty:1,usd:0,suggestion:''}]},
+        shein:{shipUsd:0,handlingUsd:0,taxUsd:0,exactAwg:0,localAwg:0,items:[{name:'SHEIN clothing order',lookup:'SHEIN clothing',category:'clothing',qty:1,usd:0,suggestion:''}]}
+      };
+      const IPHONE_SHEIN_EXAMPLE={
+        activeTab:'settings', calculationMode:'combined', packageEstimateMode:'manual', shippingMode:'invoiceSmall', dtzMode:'auto', dtzFeeAwg:25, packages:[{qty:1,length:10,width:8,height:13.6}],
+        amazon:{shipUsd:0,taxUsd:0,exactAwg:0,freeShipping:false,localAwg:0,items:[
+          {name:'Apple iPhone 15 Plus Renewed',lookup:'Apple iPhone 15 Plus 128GB Black Unlocked Renewed',category:'smartphone',qty:1,usd:412.00,suggestion:''},
+          {name:'Apple iPhone 16 Renewed',lookup:'Apple iPhone 16 128GB Black Unlocked Renewed',category:'smartphone',qty:1,usd:555.24,suggestion:''}
+        ]},
+        shein:{shipUsd:0,handlingUsd:0,taxUsd:0.78,exactAwg:0,localAwg:0,items:[
+          {name:'SHEIN tween girl cotton clothing',lookup:'SHEIN Leap Crew 4pcs Tween Girl casual cartoon flower heart print short sleeve round neck t shirt',category:'clothing',qty:1,usd:11.15,suggestion:''}
+        ]}
+      };
+      const AMAZON_CART_EXAMPLE={
+        activeTab:'amazon', calculationMode:'combined', packageEstimateMode:'auto', shippingMode:'lcl', dtzMode:'auto', dtzFeeAwg:25, packages:[{qty:1,length:18,width:15,height:9}],
+        amazon:{shipUsd:6.99,taxUsd:0,exactAwg:354.61,freeShipping:false,localAwg:0,items:[
+          {name:'Gate opener remote controls',lookup:'Kingdder 2 Pcs 2 Channel Remote Control Compatible with BFT Mitto B RCB02 R1 433.92mhz Gate Opener Remote Control Transmitter',category:'radio_remote',qty:1,usd:15.99,suggestion:''},
+          {name:'Carpal tunnel wrist brace',lookup:'Carpal Tunnel Wrist Brace Night Support and Metal Splint Stabilizer',category:'medical_orthopedic',qty:1,usd:15.97,suggestion:''},
+          {name:'NTAG216 NFC cards',lookup:'10pcs NTAG216 NFC Cards Black 868 Bytes Memory',category:'smart_cards',qty:1,usd:11.99,suggestion:''},
+          {name:'USB C docking station',lookup:'13 in 1 USB C Docking Station Dual Monitor Triple Display LIONWEI USB C Hub',category:'usb_dock',qty:1,usd:49.99,suggestion:''},
+          {name:'Brother sewing machine',lookup:'Brother RLX3817 Full Size 17 Stitch Sewing Machine White Refurbished Renewed',category:'sewing_machine',qty:1,usd:94.99,suggestion:''}
+        ]},
+        shein:{shipUsd:0,handlingUsd:0,taxUsd:0,exactAwg:0,localAwg:0,items:[]}
+      };
+
+      let state=loadState();
+      const el={
+        tabBtns:document.querySelectorAll('.tab-btn'), amazonPanel:document.getElementById('amazonPanel'), sheinPanel:document.getElementById('sheinPanel'), settingsPanel:document.getElementById('settingsPanel'),
+        amazonTextInput:document.getElementById('amazonTextInput'), sheinTextInput:document.getElementById('sheinTextInput'), importAmazonBtn:document.getElementById('importAmazonBtn'), importSheinBtn:document.getElementById('importSheinBtn'), clearAmazonTextBtn:document.getElementById('clearAmazonTextBtn'), clearSheinTextBtn:document.getElementById('clearSheinTextBtn'), amazonImportStatus:document.getElementById('amazonImportStatus'), sheinImportStatus:document.getElementById('sheinImportStatus'),
+        amazonProductList:document.getElementById('amazonProductList'), sheinProductList:document.getElementById('sheinProductList'),
+        amazonShipUsd:document.getElementById('amazonShipUsd'), amazonTaxUsd:document.getElementById('amazonTaxUsd'), amazonExactAwg:document.getElementById('amazonExactAwg'), amazonFreeShipping:document.getElementById('amazonFreeShipping'), amazonLocalAwg:document.getElementById('amazonLocalAwg'),
+        sheinShipUsd:document.getElementById('sheinShipUsd'), sheinHandlingUsd:document.getElementById('sheinHandlingUsd'), sheinTaxUsd:document.getElementById('sheinTaxUsd'), sheinExactAwg:document.getElementById('sheinExactAwg'), sheinLocalAwg:document.getElementById('sheinLocalAwg'),
+        calculationMode:document.getElementById('calculationMode'), packageEstimateMode:document.getElementById('packageEstimateMode'), shippingMode:document.getElementById('shippingMode'), dtzMode:document.getElementById('dtzMode'), dtzFeeAwg:document.getElementById('dtzFeeAwg'), settingsRuleNote:document.getElementById('settingsRuleNote'), packageList:document.getElementById('packageList'), addPackageBtn:document.getElementById('addPackageBtn'),
+        loadRecentInvoiceBtn:document.getElementById('loadRecentInvoiceBtn'), loadAmazonCartBtn:document.getElementById('loadAmazonCartBtn'), clearAllBtn:document.getElementById('clearAllBtn'),
+        decisionPill:document.getElementById('decisionPill'), combinedTotal:document.getElementById('combinedTotal'), gpCargoTotal:document.getElementById('gpCargoTotal'), customsTotal:document.getElementById('customsTotal'), supplierTotal:document.getElementById('supplierTotal'), amazonAllIn:document.getElementById('amazonAllIn'), sheinAllIn:document.getElementById('sheinAllIn'), amazonAllInNote:document.getElementById('amazonAllInNote'), sheinAllInNote:document.getElementById('sheinAllInNote'), breakdownRows:document.getElementById('breakdownRows'), itemResultRows:document.getElementById('itemResultRows'), decisionAmazonLocalAwg:document.getElementById('decisionAmazonLocalAwg'), decisionSheinLocalAwg:document.getElementById('decisionSheinLocalAwg'), combinedDecisionCard:document.getElementById('combinedDecisionCard'), combinedDecisionText:document.getElementById('combinedDecisionText'), combinedDecisionNote:document.getElementById('combinedDecisionNote'), amazonDecisionCard:document.getElementById('amazonDecisionCard'), amazonDecisionText:document.getElementById('amazonDecisionText'), amazonDecisionNote:document.getElementById('amazonDecisionNote'), sheinDecisionCard:document.getElementById('sheinDecisionCard'), sheinDecisionText:document.getElementById('sheinDecisionText'), sheinDecisionNote:document.getElementById('sheinDecisionNote')
+      };
+
+      function n(v){const x=Number(v);return Number.isFinite(x)?x:0}
+      function money(v){return 'Afl '+n(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+      function usd(v){return '$'+n(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+      function pct(v){return n(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2})+'%'}
+      function cftFmt(v){return n(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' CFT'}
+      function ceil05(v){return Math.ceil((n(v)-1e-9)*20)/20}
+      function ceilWhole(v){return Math.ceil(n(v)-1e-9)}
+      function clone(o){return JSON.parse(JSON.stringify(o))}
+      function esc(s){return String(s||'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[ch]))}
+      function dutyFor(key){return DUTIES.find(d=>d.key===key)||DUTIES.find(d=>d.key==='manual12')}
+      function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);const base=raw?{...clone(DEFAULT_STATE),...JSON.parse(raw)}:clone(DEFAULT_STATE);base.amazon={...clone(DEFAULT_STATE.amazon),...(base.amazon||{})};base.shein={...clone(DEFAULT_STATE.shein),...(base.shein||{})};base.amazon.items=base.amazon.items||[];base.shein.items=base.shein.items||[];return base}catch(e){return clone(DEFAULT_STATE)}}
+      function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){}}
+      function dutyOptions(selected){return DUTIES.map(d=>`<option value="${d.key}" ${d.key===selected?'selected':''}>${d.label} — ${d.rate}%${d.hs?' (HS '+d.hs+')':''}${d.dtz?' • DTZ':''}</option>`).join('')}
+      function parseMoneyNumber(value){const cleaned=String(value||'').replace(/[^0-9,.-]/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',', '.');const x=Number(cleaned);return Number.isFinite(x)?x:0}
+      function cleanLine(line){return String(line||'').replace(/\s+/g,' ').trim()}
+      function normalizeText(raw){let text=String(raw||'').trim();try{text=decodeURIComponent(text)}catch(e){}return text.replace(/[?&#].*$/,' ').replace(/t[-\s]?shirt/gi,'t shirt').replace(/usb[-\s]?c/gi,'usb c').replace(/wi[-\s]?fi/gi,'wifi').replace(/[^a-zA-Z0-9%/.\-\s]/g,' ').replace(/[-_+]/g,' ').replace(/\s+/g,' ').trim().toLowerCase()}
+      function containsKeyword(clean, keyword){const k=String(keyword||'').toLowerCase().replace(/[-_+]/g,' ').replace(/\s+/g,' ').trim();if(!k)return false;const escRe=k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');return new RegExp('(^|[^a-z0-9])'+escRe+'($|[^a-z0-9])','i').test(clean)}
+      function categoryChargesText(d){return `Linked Customs category: ${d.label} — import duty ${d.rate}%, BBO/BAVP ${BBO_RATE}%, BAZV ${BAZV_RATE}%${d.dtz?', DTZ auto-trigger':''}.`}
+      function titleCase(text){const clean=normalizeText(text);if(!clean)return '';const stop=new Set(['and','or','for','with','the','a','an','of','to','in','on','by','from']);return clean.split(' ').filter(Boolean).slice(0,10).map((w,i)=>{const lower=w.toLowerCase();if(i>0&&stop.has(lower))return lower;if(/^(usb|ssd|hdmi|led|lcd|m4|m3|m2|m1|ip|tv|pc|nfc|rfid)$/i.test(w))return w.toUpperCase();if(/^iphone$/i.test(w))return 'iPhone';if(/^ipad$/i.test(w))return 'iPad';if(/^imac$/i.test(w))return 'iMac';return lower.charAt(0).toUpperCase()+lower.slice(1)}).join(' ')}
+      function classify(text, preferredSource){const clean=normalizeText(text);if(!clean)return {key:preferredSource==='shein'?'clothing':'manual12',confidence:0,reason:'No text available.'};const priority=[
+        {key:'smartphone',terms:['iphone','mobile phone','cell phone','smartphone','unlocked phone','samsung galaxy','google pixel']},
+        {key:'radio_remote',terms:['433.92mhz','gate opener','gate remote','garage remote','remote control transmitter','radio remote']},
+        {key:'router_wifi',terms:['wifi router','wireless access point','mesh wifi','lte router','5g router','modem']},
+        {key:'usb_dock',terms:['usb c docking','usb-c docking','docking station','usb c hub','usb-c hub','usb hub']},
+        {key:'smart_cards',terms:['ntag216','nfc card','nfc cards','smart card','smart cards','rfid']},
+        {key:'furniture_plastic',terms:['shoe rack','storage rack','plastic shelf','plastic shelves','organizer rack']},
+        {key:'appliance_parts',terms:['roomba','irobot','vacuum parts','vacuum replacement','replacement parts kit','filter brush','side brush','beater brush']},
+        {key:'medical_orthopedic',terms:['carpal tunnel','wrist brace','metal splint','orthopedic brace','orthopaedic brace','support brace']},
+        {key:'sewing_machine',terms:['sewing machine','stitch sewing machine','brother rlx','brother sewing']},
+        {key:'clothing',terms:['t shirt','shirt','shirts','tee shirt','polo','blouse','dress','romper','pajama','pyjama','hoodie','jacket','shorts','pants','jeans','tank top','outfit','apparel','clothing','tween girl','round neck']},
+        {key:'footwear',terms:['shoes','shoe','sneaker','sneakers','sandals','slippers','boots','footwear']},
+        {key:'cosmetics',terms:['cosmetic','cosmetics','makeup','skin care','skincare','serum','cream','lotion','moisturizer','sunscreen','lipstick','foundation','mascara']},
+        {key:'books',terms:['book','books','paperback','hardcover','textbook','printed book']}
+      ];
+        for(const check of priority){const hit=check.terms.find(t=>containsKeyword(clean,t));if(hit){const d=dutyFor(check.key);return {key:d.key,confidence:94,reason:`Matched high-priority keyword: ${hit}.`}}}
+        let best=null;for(const d of DUTIES){if(!d.keywords||!d.keywords.length)continue;let score=0,hits=[];for(const kw of d.keywords){if(containsKeyword(clean,kw)){score+=Math.min(18,5+String(kw).length/2);hits.push(kw)}}if(score>0&&(!best||score>best.score))best={d,score,hits}}
+        if(!best){const key=preferredSource==='shein'?'clothing':'manual12';return {key,confidence:preferredSource==='shein'?65:35,reason:preferredSource==='shein'?'SHEIN defaulted to clothing. Review if item is not clothing.':'No strong keyword match. Manual 12% selected as conservative default.'}}
+        return {key:best.d.key,confidence:Math.min(96,Math.round(60+best.score*2.5)),reason:`Suggested from keyword${best.hits.length>1?'s':''}: ${best.hits.slice(0,3).join(', ')}.`}
+      }
+
+      function findAwgAmount(text,label){const re=new RegExp(label+String.raw`[^\n\r]*?AWG\s*([0-9.,]+)`,'i');const m=String(text||'').match(re);return m?parseMoneyNumber(m[1]):0}
+      function findUsdAmount(text,label){const re=new RegExp(label+String.raw`[^\n\r]*?\$?\s*([0-9]+(?:[.,][0-9]{2})?)`,'i');const m=String(text||'').match(re);return m?parseMoneyNumber(m[1]):0}
+      function findUsdAwgRate(text){const m=String(text||'').match(/1\s*USD\s*=\s*([0-9.,]+)\s*AWG/i);const rate=m?parseMoneyNumber(m[1]):0;return rate>0?rate:CUSTOMS_FX}
+
+      function extractTitleBeforePrice(lines,priceIndex){const collected=[];for(let j=priceIndex-1;j>=0&&collected.length<10;j--){const line=cleanLine(lines[j]);if(!line)continue;if(/^\$\d/.test(line))break;if(/^\d+$/.test(line))continue;if(/bought in past month/i.test(line))continue;if(/^(add gift options|gift options not available|ships from|sold by|& free returns|free returns|change quantity of)/i.test(line))break;if(/^(tuesday|wednesday|thursday|friday|saturday|sunday|monday),?\s/i.test(line))break;if(/^(arriving|choose your delivery option|submit|secure checkout|place your order|try prime|special offer|back to cart|order total|items \(|shipping & handling|estimated tax|exchange rate|amazon currency converter|enabled - pay in awg|change card currency|delivering to|paying with|select a payment plan|use a gift card|why pay for delivery|congratulations)/i.test(line))break;collected.push(line)}return collected.reverse().join(' ').replace(/%20/g,' ').replace(/\s+/g,' ').trim()}
+      function parseAmazonCartText(raw){const text=String(raw||'').replace(/\r/g,'\n');const lines=text.split('\n').map(cleanLine).filter(Boolean);const fxRate=findUsdAwgRate(text);const orderTotalAwg=findAwgAmount(text,'Order\\s+total');const shippingAwg=findAwgAmount(text,'Shipping\\s*&\\s*handling');const taxAwg=findAwgAmount(text,'Estimated\\s+tax(?:\\s+to\\s+be\\s+collected)?[:*]?');const freeShipAwg=findAwgAmount(text,'Free\\s+Shipping');const items=[],seen=new Set();for(let i=0;i<lines.length;i++){const m=lines[i].match(/^\$\s*([0-9]+(?:\.[0-9]{2})?)(?:\s|\(|$)/);if(!m)continue;const price=parseMoneyNumber(m[1]);if(!price||price<0.5)continue;const title=extractTitleBeforePrice(lines,i);if(!title||title.length<4)continue;const key=title.toLowerCase()+'|'+price.toFixed(2);if(seen.has(key))continue;seen.add(key);let qty=1;for(let q=i+1;q<Math.min(lines.length,i+18);q++){if(/^change quantity of/i.test(lines[q])){for(let k=q+1;k<Math.min(lines.length,q+6);k++){const qm=cleanLine(lines[k]).match(/^(\d{1,3})$/);if(qm){qty=Math.max(1,Number(qm[1]));break}}break}if(/^\$\d/.test(lines[q]))break}const result=classify(title,'amazon');const d=dutyFor(result.key);items.push({name:titleCase(title)||title,lookup:title,category:result.key,qty,usd:price,suggestion:`${categoryChargesText(d)} Imported from Amazon text. ${result.reason}`})}return {items,shipUsd:shippingAwg>0?shippingAwg/fxRate:0,taxUsd:taxAwg>0?taxAwg/fxRate:0,exactAwg:orderTotalAwg,freeShipping:freeShipAwg>0||/free shipping:\s*[-–]?\s*awg\s*[0-9.,]+/i.test(text)}}
+      function parseSheinText(raw){const text=String(raw||'').replace(/\r/g,'\n');const lines=text.split('\n').map(cleanLine).filter(Boolean);const subtotal=findUsdAmount(text,'Item\\(s\\)\\s*Subtotal:')||findUsdAmount(text,'Subtotal:');const shipping=findUsdAmount(text,'Shipping\\s*Fee:');const handling=findUsdAmount(text,'Handling\\s*Fee:');const tax=findUsdAmount(text,'Sales\\s*Tax:');const grand=findUsdAmount(text,'Grand\\s*Total:');const items=[];for(const line of lines){if(/subtotal|shipping fee|handling fee|sales tax|grand total|invoice|order number|billing address|delivery address|seller information/i.test(line))continue;const m=line.match(/(.+?)\s+(\d{1,3})\s+([0-9]+(?:\.[0-9]{2}))\s*$/);if(m&&m[1].length>12){const title=m[1].trim();const qty=Math.max(1,Number(m[2]));const price=parseMoneyNumber(m[3]);const result=classify(title,'shein');const d=dutyFor(result.key);items.push({name:titleCase(title)||title,lookup:title,category:result.key,qty,usd:price,suggestion:`${categoryChargesText(d)} Imported from SHEIN invoice text. ${result.reason}`})}}
+        if(!items.length&&subtotal>0){items.push({name:'SHEIN clothing order',lookup:'SHEIN clothing order',category:'clothing',qty:1,usd:subtotal,suggestion:`${categoryChargesText(dutyFor('clothing'))} SHEIN default: clothing at 6%. Review if the item is not clothing.`})}
+        return {items,shipUsd:shipping,handlingUsd:handling,taxUsd:tax,exactAwg:0,grandUsd:grand}
+      }
+
+      function readState(){
+        state.calculationMode=el.calculationMode.value;state.packageEstimateMode=el.packageEstimateMode.value;state.shippingMode=el.shippingMode.value;state.dtzMode=el.dtzMode.value;state.dtzFeeAwg=n(el.dtzFeeAwg.value);
+        state.amazon.shipUsd=n(el.amazonShipUsd.value);state.amazon.taxUsd=n(el.amazonTaxUsd.value);state.amazon.exactAwg=n(el.amazonExactAwg.value);state.amazon.freeShipping=!!el.amazonFreeShipping.checked;state.amazon.localAwg=n(el.amazonLocalAwg.value || (el.decisionAmazonLocalAwg ? el.decisionAmazonLocalAwg.value : 0));
+        state.shein.shipUsd=n(el.sheinShipUsd.value);state.shein.handlingUsd=n(el.sheinHandlingUsd.value);state.shein.taxUsd=n(el.sheinTaxUsd.value);state.shein.exactAwg=n(el.sheinExactAwg.value);state.shein.localAwg=n(el.sheinLocalAwg.value || (el.decisionSheinLocalAwg ? el.decisionSheinLocalAwg.value : 0));
+        state.amazon.items=readProductList('amazon');state.shein.items=readProductList('shein');state.packages=readPackageList();
+      }
+      function readProductList(source){const list=source==='amazon'?el.amazonProductList:el.sheinProductList;return Array.from(list.querySelectorAll('.product-card')).map((card,i)=>({name:card.querySelector('.item-name').value,lookup:card.querySelector('.item-lookup').value,category:card.querySelector('.item-category').value,qty:Math.max(1,Math.round(n(card.querySelector('.item-qty').value)||1)),usd:n(card.querySelector('.item-usd').value),suggestion:(state[source].items[i]&&state[source].items[i].suggestion)||''}))}
+      function readPackageList(){if(state.packageEstimateMode!=='manual')return state.packages||[];return Array.from(el.packageList.querySelectorAll('.manual-package-card')).map(card=>({qty:Math.max(1,Math.round(n(card.querySelector('.pkg-qty').value)||1)),length:n(card.querySelector('.pkg-length').value),width:n(card.querySelector('.pkg-width').value),height:n(card.querySelector('.pkg-height').value)}))}
+      function applyState(){
+        el.calculationMode.value=state.calculationMode;el.packageEstimateMode.value=state.packageEstimateMode;el.shippingMode.value=state.shippingMode;el.dtzMode.value=state.dtzMode;el.dtzFeeAwg.value=n(state.dtzFeeAwg);
+        el.amazonShipUsd.value=n(state.amazon.shipUsd);el.amazonTaxUsd.value=n(state.amazon.taxUsd);el.amazonExactAwg.value=n(state.amazon.exactAwg);el.amazonFreeShipping.checked=!!state.amazon.freeShipping;el.amazonLocalAwg.value=n(state.amazon.localAwg);if(el.decisionAmazonLocalAwg)el.decisionAmazonLocalAwg.value=n(state.amazon.localAwg)||'';
+        el.sheinShipUsd.value=n(state.shein.shipUsd);el.sheinHandlingUsd.value=n(state.shein.handlingUsd);el.sheinTaxUsd.value=n(state.shein.taxUsd);el.sheinExactAwg.value=n(state.shein.exactAwg);el.sheinLocalAwg.value=n(state.shein.localAwg);if(el.decisionSheinLocalAwg)el.decisionSheinLocalAwg.value=n(state.shein.localAwg)||'';
+        renderProducts('amazon');renderProducts('shein');renderPackages();switchTab(state.activeTab||'amazon',true);
+      }
+      function renderProducts(source){const list=source==='amazon'?el.amazonProductList:el.sheinProductList;const items=state[source].items||[];list.innerHTML=items.map((item,idx)=>{const d=dutyFor(item.category);const suggestion=item.suggestion||'';const cls=suggestion.includes('Review')||suggestion.includes('default')?'warn':(suggestion?'good':'');return `<div class="product-card" data-source="${source}" data-index="${idx}">
+          <div class="product-head"><div class="product-title">${source==='amazon'?'Amazon':'SHEIN'} line ${idx+1}</div>${items.length>1?'<button type="button" class="btn-danger btn-small remove-row">Remove</button>':''}</div>
+          <div class="lookup-row"><div><div class="mini-label">Product name / pasted title</div><input class="item-lookup" value="${esc(item.lookup||'')}" placeholder="Example: iPhone, SHEIN t-shirt, USB-C hub"></div><button type="button" class="btn-outline btn-inline suggest-row">Suggest category</button></div>
+          <div class="product-grid">
+            <div><div class="mini-label">Item / group name</div><input class="item-name" value="${esc(item.name||'')}" placeholder="Item name"></div>
+            <div><div class="mini-label">Product type dropdown</div><select class="productType item-category">${dutyOptions(item.category)}</select></div>
+            <div><div class="mini-label">Qty</div><input class="item-qty" type="number" min="1" step="1" value="${Math.max(1,n(item.qty)||1)}"></div>
+            <div><div class="mini-label">USD unit value</div><input class="item-usd" type="number" min="0" step="0.01" value="${n(item.usd)}"></div>
+            <div><div class="mini-label">Duty</div><div class="rate-badge ${d.review?'warn':''}">${pct(d.rate)}</div></div>
+          </div>
+          <div class="category-status"><strong>${categoryChargesText(d)}</strong> ${d.dtz?'DTZ handling will be applied once per shipment.':'No DTZ fee for this category.'}</div><div class="suggestion ${cls}">${suggestion?esc(suggestion):'Paste a product title and click “Suggest category”, or select the product type manually.'}</div>
+        </div>`}).join('')||'<div class="cart-status warn">No product lines. Add at least one line or import text.</div>'}
+      function renderPackages(){if(state.packageEstimateMode==='manual'){el.addPackageBtn.style.display='';el.packageList.innerHTML=(state.packages||[]).map((p,idx)=>`<div class="package-card manual-package-card" data-index="${idx}"><div class="package-head"><div class="package-title">Manual package ${idx+1}</div>${(state.packages||[]).length>1?'<button type="button" class="btn-danger btn-small remove-package">Remove</button>':''}</div><div class="package-grid"><div><div class="mini-label">Qty</div><input class="pkg-qty" type="number" min="1" step="1" value="${n(p.qty)||1}"></div><div><div class="mini-label">Length (in)</div><input class="pkg-length" type="number" min="0" step="0.01" value="${n(p.length)}"></div><div><div class="mini-label">Width (in)</div><input class="pkg-width" type="number" min="0" step="0.01" value="${n(p.width)}"></div><div><div class="mini-label">Height (in)</div><input class="pkg-height" type="number" min="0" step="0.01" value="${n(p.height)}"></div><div><div class="mini-label">Volume</div><div class="rate-badge">${cftFmt(packageCft(p))}</div></div></div></div>`).join('')}else{el.addPackageBtn.style.display='none';const estimates=autoPackageEstimates(allActiveItems());el.packageList.innerHTML=estimates.map((pkg,idx)=>`<div class="package-card"><div class="package-head"><div class="package-title">Estimated package ${idx+1}</div><div class="badge">${esc(pkg.confidence)}</div></div><div class="estimate-grid"><div><div class="mini-label">Based on</div><strong>${esc(pkg.label)}</strong><div class="estimate-note">${esc(pkg.category)}</div></div><div><div class="mini-label">Qty</div><div class="rate-badge">${pkg.qty}</div></div><div><div class="mini-label">Assumed size</div><strong>${pkg.length} × ${pkg.width} × ${pkg.height} in</strong><div class="estimate-note">${esc(pkg.note)}</div></div><div><div class="mini-label">CFT</div><div class="rate-badge">${cftFmt(packageCft(pkg))}</div></div><div><div class="mini-label">Use</div><div class="estimate-note">Estimate only. Use manual override if GP Cargo gives exact size.</div></div></div></div>`).join('')}
+      }
+      function allActiveItems(){return [...(state.amazon.items||[]).map(x=>({...x,source:'amazon'})),...(state.shein.items||[]).map(x=>({...x,source:'shein'}))].filter(x=>n(x.usd)>0&&n(x.qty)>0)}
+      function packageCft(pkg){return n(pkg.qty)*n(pkg.length)*n(pkg.width)*n(pkg.height)/1728}
+      function autoPackageEstimates(items){if(!items.length)return [{label:'No product entered',category:'—',qty:1,length:0,width:0,height:0,confidence:'—',note:'Enter product lines.'}];return items.map(item=>estimateDimensionsForItem(item))}
+      function activePackagesFor(items){return state.packageEstimateMode==='manual'?(state.packages||[]):autoPackageEstimates(items)}
+      function totalCftFor(items){return activePackagesFor(items).reduce((s,p)=>s+packageCft(p),0)}
+      function totalPiecesFor(items){return activePackagesFor(items).reduce((s,p)=>s+Math.max(0,n(p.qty)),0)}
+      function estimateDimensionsForItem(item){const clean=normalizeText((item.lookup||'')+' '+(item.name||''));let dims=[12,10,6],confidence='Medium',note='generic small parcel estimate';const cat=item.category;if(cat==='smartphone'){dims=[8,5,3];note='smartphone box/parcel estimate';confidence='Medium'}else if(cat==='computer'){if(containsKeyword(clean,'imac')||containsKeyword(clean,'all in one')){dims=[24,18,12];note='iMac/all-in-one carton estimate'}else if(containsKeyword(clean,'laptop')||containsKeyword(clean,'macbook')){dims=[18,13,4];note='laptop shipping box estimate'}else{dims=[20,14,8];note='computer carton estimate'}}else if(cat==='clothing'){if(containsKeyword(clean,'jacket')||containsKeyword(clean,'hoodie')||containsKeyword(clean,'coat')){dims=[14,12,6];note='bulkier folded apparel estimate'}else if(containsKeyword(clean,'dress')||containsKeyword(clean,'romper')){dims=[14,11,3];note='folded dress/apparel estimate'}else{dims=[12,10,2];note='folded clothing parcel estimate'}confidence='Low-medium'}else if(cat==='footwear'){dims=[14,10,6];note='shoe box estimate'}else if(cat==='radio_remote'||cat==='electronics_other'){dims=[10,8,5];note='small electronics parcel estimate'}else if(cat==='usb_dock'||cat==='computer_parts'||cat==='smart_cards'){dims=[9,7,3];note='computer accessory parcel estimate'}else if(cat==='monitor'){dims=[22,16,6];note='small monitor/display carton'}else if(cat==='appliance_parts'){dims=[12,9,4];note='replacement parts parcel'}else if(cat==='sewing_machine'){dims=[18,15,9];note='small sewing-machine carton'}else if(cat==='medical_orthopedic'||cat==='medical_textile'){dims=[10,8,4];note='brace/support parcel'}else if(cat==='cosmetics'){dims=[8,6,3];note='cosmetics parcel'}else if(cat==='foam_panels'){dims=[13,13,12];note='compressed acoustic foam carton';confidence='Low'}else if(cat==='furniture_wood'){dims=[36,12,8];note='shelf/furniture carton';confidence='Low'}else if(cat==='furniture_plastic'){dims=[24,12,8];note='plastic rack/furniture carton';confidence='Low'}else if(cat==='appliances'){dims=[18,14,12];note='household appliance carton';confidence='Low'}else if(cat==='books'){dims=[10,8,3];note='book parcel'}return {item,label:item.name||dutyFor(cat).label,category:dutyFor(cat).label,qty:Math.max(1,Math.round(n(item.qty)||1)),length:dims[0],width:dims[1],height:dims[2],confidence,note}}
+      function lclRate(cft){if(cft<=0)return {usd:0,rule:'No package volume entered.'};if(cft<=2)return {usd:40,rule:'0–2 CFT: USD 40 flat rate'};if(cft<=4)return {usd:60,rule:'2.1–4 CFT: USD 60 flat rate'};if(cft<=8)return {usd:80,rule:'4.1–8 CFT: USD 80 flat rate'};if(cft<=14)return {usd:100,rule:'8.1–14 CFT: USD 100 flat rate'};if(cft<=25)return {usd:cft*3.90*1.10+35,rule:'14.1–25 CFT: USD 3.90/CFT + 10% FS + USD 35 B/L'};if(cft<=300)return {usd:cft*3.90*1.20+75,rule:'25–300 CFT: USD 3.90/CFT + 20% FS + USD 40 DOC + USD 35 B/L'};if(cft<=500)return {usd:cft*3.65*1.20+75,rule:'301–500 CFT: USD 3.65/CFT + 20% FS + USD 40 DOC + USD 35 B/L'};return {usd:cft*3.40*1.20+75,rule:'501+ CFT: USD 3.40/CFT + 20% FS + USD 40 DOC + USD 35 B/L'}}
+      function spsRate(pieces){let awg=pieces<=0?0:(pieces===1?20:(pieces===2?25:25+(pieces-2)*5));return {awg,usdEquivalent:awg/GP_BILLING_FX,rule:`SPS: ${pieces} package${pieces===1?'':'s'} = ${money(awg)}.`}}
+      function localClearance(cft){if(cft<=0)return {awg:0,rule:'No package volume entered'};if(cft<=4)return {awg:35,rule:'Customs clearing minimum observed/current small shipment: Afl 35'};if(cft<=6)return {awg:40,rule:'Customs clearance 4–6 CFT: Afl 40'};if(cft<=10)return {awg:60,rule:'Customs clearance 6–10 CFT: Afl 60'};if(cft<=14)return {awg:70,rule:'Customs clearance 10–14 CFT: Afl 70'};const unload=(cft/CFT_PER_CBM)*15;return {awg:95+15+unload,rule:'Customs clearance 14+ CFT: Afl 95 + Afl 15 extra bislijst + Afl 15/CBM unloading'}}
+      function hasDtz(items){return items.some(x=>dutyFor(x.category).dtz)}
+      function freightCalc(items){const cft=totalCftFor(items),pieces=totalPiecesFor(items),clearance=localClearance(cft);let mode=state.shippingMode;let charge;if(mode==='auto'){if(cft>0&&cft<=1&&hasDtz(items)){charge={usd:35,rule:'Observed small B/L with phones: USD 20 ocean + USD 15 repack'};mode='invoiceSmall'}else if(cft>0&&cft<=2&&pieces<=2&&!hasDtz(items)){const s=spsRate(pieces);return finishFreight('SPS',cft,pieces,s.usdEquivalent,s.awg,clearance,s.rule)}else{charge=lclRate(cft);mode='lcl'}}else if(mode==='invoiceSmall'){charge={usd:35,rule:'Forced observed small B/L: USD 20 ocean + USD 15 repack'}}else if(mode==='sps'){const s=spsRate(pieces);return finishFreight('SPS',cft,pieces,s.usdEquivalent,s.awg,clearance,s.rule)}else{charge=lclRate(cft)}return finishFreight(mode==='invoiceSmall'?'Small B/L':'LCL',cft,pieces,charge.usd,charge.usd*GP_BILLING_FX,clearance,charge.rule)}
+      function finishFreight(mode,cft,pieces,oceanUsd,oceanAwg,clearance,chargeRule){const dtz=(state.dtzMode==='forceOn'||(state.dtzMode==='auto'&&hasDtz(allActiveItems())))?n(state.dtzFeeAwg):0;const serviceTax=(clearance.awg+dtz)*0.07;return {mode,cft,pieces,oceanUsd,oceanAwg,clearanceAwg:clearance.awg,dtzAwg:dtz,serviceTax,serviceTotal:oceanAwg+clearance.awg+dtz+serviceTax,chargeRule,clearanceRule:clearance.rule,dtzRule:dtz>0?'DTZ handling applied because wireless/radio-frequency equipment is present.':'No DTZ handling applied.'}}
+      function supplierSubtotal(source){const s=state[source];return (s.items||[]).reduce((sum,x)=>sum+n(x.usd)*Math.max(1,n(x.qty)||1),0)}
+      function supplierPaymentAwg(source){const s=state[source];if(n(s.exactAwg)>0)return n(s.exactAwg);if(source==='amazon'){const subtotal=supplierSubtotal('amazon');const free=s.freeShipping?n(s.shipUsd):0;return Math.max(0,subtotal+n(s.shipUsd)-free+n(s.taxUsd))*AMAZON_FX}else{const subtotal=supplierSubtotal('shein');return Math.max(0,subtotal+n(s.shipUsd)+n(s.handlingUsd)+n(s.taxUsd))*SHEIN_FX}}
+      function sourceExtraUsd(source){const s=state[source];return source==='amazon'?n(s.shipUsd)+n(s.taxUsd):n(s.shipUsd)+n(s.handlingUsd)+n(s.taxUsd)}
+      function calcForItems(items, freight, mode){const subtotalUsd=items.reduce((sum,x)=>sum+n(x.usd)*Math.max(1,n(x.qty)||1),0);const allSubtotal=allActiveItems().reduce((sum,x)=>sum+n(x.usd)*Math.max(1,n(x.qty)||1),0);const relevantSources=[...new Set(items.map(x=>x.source))];const sourceExtras=relevantSources.reduce((sum,src)=>sum+sourceExtraUsd(src),0);let customsFreightUsd=freight.oceanUsd; if(mode==='separate'){customsFreightUsd=freight.oceanUsd}else{customsFreightUsd=freight.oceanUsd*(allSubtotal>0?subtotalUsd/allSubtotal:0)}
+        const merchAwg=subtotalUsd*CUSTOMS_FX;const extrasAwg=sourceExtras*CUSTOMS_FX;const freightAwg=customsFreightUsd*CUSTOMS_FX;const insuranceAwg=(merchAwg+extrasAwg+freightAwg)*(INSURANCE_PCT/100);const additionsAwg=extrasAwg+freightAwg+insuranceAwg;let rows=[],dutyTotal=0,bboTotal=0,bazTotal=0,customsValueTotal=0;for(const item of items){const qty=Math.max(1,n(item.qty)||1);const itemUsd=n(item.usd)*qty;const share=subtotalUsd>0?itemUsd/subtotalUsd:0;const d=dutyFor(item.category);const customsValue=ceilWhole(itemUsd*CUSTOMS_FX+additionsAwg*share);const duty=ceil05(customsValue*(d.rate/100));const bbo=ceil05(customsValue*(BBO_RATE/100));const baz=ceil05(customsValue*(BAZV_RATE/100));rows.push({source:item.source,item,d,customsValue,duty,bbo,baz,total:duty+bbo+baz});dutyTotal+=duty;bboTotal+=bbo;bazTotal+=baz;customsValueTotal+=customsValue}return {subtotalUsd,merchAwg,extrasAwg,customsFreightUsd,freightAwg,insuranceAwg,customsValueTotal,dutyTotal,bboTotal,bazTotal,customsTotal:dutyTotal+bboTotal+bazTotal,rows}}
+      function calculate(){readState();let items=allActiveItems();if(state.calculationMode==='combined'){const f=freightCalc(items);const c=calcForItems(items,f,'combined');const supplierA=supplierPaymentAwg('amazon'),supplierS=supplierPaymentAwg('shein');const amazonRows=c.rows.filter(r=>r.source==='amazon'),sheinRows=c.rows.filter(r=>r.source==='shein');const customsA=amazonRows.reduce((s,r)=>s+r.total,0),customsS=sheinRows.reduce((s,r)=>s+r.total,0);const subtotalA=supplierSubtotal('amazon'),subtotalS=supplierSubtotal('shein'),subtotalAll=subtotalA+subtotalS;const gpA=f.serviceTotal*(subtotalAll?subtotalA/subtotalAll:0),gpS=f.serviceTotal*(subtotalAll?subtotalS/subtotalAll:0);return {combined:true,items,freight:f,customs:c,supplierA,supplierS,supplierTotal:supplierA+supplierS,gpA,gpS,amazonAllIn:supplierA+customsA+gpA,sheinAllIn:supplierS+customsS+gpS,total:supplierA+supplierS+c.customsTotal+f.serviceTotal,rows:c.rows}}
+        const amazonItems=(state.amazon.items||[]).map(x=>({...x,source:'amazon'})).filter(x=>n(x.usd)>0);const sheinItems=(state.shein.items||[]).map(x=>({...x,source:'shein'})).filter(x=>n(x.usd)>0);const fa=freightCalc(amazonItems),fs=freightCalc(sheinItems);const ca=calcForItems(amazonItems,fa,'separate'),cs=calcForItems(sheinItems,fs,'separate');const supplierA=supplierPaymentAwg('amazon'),supplierS=supplierPaymentAwg('shein');return {combined:false,items:[...amazonItems,...sheinItems],freight:{...fa,serviceTotal:fa.serviceTotal+fs.serviceTotal,mode:'Separate',chargeRule:'Amazon: '+fa.chargeRule+' | SHEIN: '+fs.chargeRule,clearanceRule:'Amazon: '+fa.clearanceRule+' | SHEIN: '+fs.clearanceRule,dtzRule:'Calculated separately per website.'},customs:{customsTotal:ca.customsTotal+cs.customsTotal,dutyTotal:ca.dutyTotal+cs.dutyTotal,bboTotal:ca.bboTotal+cs.bboTotal,bazTotal:ca.bazTotal+cs.bazTotal,customsValueTotal:ca.customsValueTotal+cs.customsValueTotal},supplierA,supplierS,supplierTotal:supplierA+supplierS,gpA:fa.serviceTotal,gpS:fs.serviceTotal,amazonAllIn:supplierA+ca.customsTotal+fa.serviceTotal,sheinAllIn:supplierS+cs.customsTotal+fs.serviceTotal,total:supplierA+supplierS+ca.customsTotal+cs.customsTotal+fa.serviceTotal+fs.serviceTotal,rows:[...ca.rows,...cs.rows]}
+      }
+      function renderResults(){const r=calculate();el.combinedTotal.textContent=money(r.total);el.gpCargoTotal.textContent=money(r.freight.serviceTotal);el.customsTotal.textContent=money(r.customs.customsTotal);el.supplierTotal.textContent=money(r.supplierTotal);el.amazonAllIn.textContent=money(r.amazonAllIn);el.sheinAllIn.textContent=money(r.sheinAllIn);el.amazonAllInNote.textContent=`Supplier ${money(r.supplierA)} + allocated Customs/GP Cargo.`;el.sheinAllInNote.textContent=`Supplier ${money(r.supplierS)} + allocated Customs/GP Cargo.`;
+        const amazonLocal=n(state.amazon.localAwg), sheinLocal=n(state.shein.localAwg), localTotal=amazonLocal+sheinLocal;
+        const amazonOnlineActive=(supplierSubtotal('amazon')>0 || n(state.amazon.exactAwg)>0), sheinOnlineActive=(supplierSubtotal('shein')>0 || n(state.shein.exactAwg)>0);
+        function setDecisionBox(card,textEl,noteEl,localAmount,onlineAmount,onlineLabel,missingLocal){
+          card.className='metric';
+          if(textEl===el.combinedDecisionText) card.className='metric highlight';
+          if(textEl===el.sheinDecisionText) card.className='metric purple';
+          if(!onlineAmount || onlineAmount<=0){ textEl.textContent='No online items'; noteEl.textContent=`No ${onlineLabel} online cost is currently calculated.`; return; }
+          if(!localAmount || localAmount<=0){ textEl.textContent='No local price entered'; noteEl.textContent=`Enter a comparable local Aruba price to compare against the ${onlineLabel} all-in online cost of ${money(onlineAmount)}.`; return; }
+          if(missingLocal){ card.className='metric'; textEl.textContent='Partial local comparison'; noteEl.textContent=`A local price is missing for at least one active source. Enter all local prices before relying on the combined decision.`; return; }
+          const savings=localAmount-onlineAmount;
+          if(savings>0){ card.className='metric good'; textEl.textContent=textEl===el.combinedDecisionText?'Online combined order is cheaper':'Online is cheaper'; noteEl.textContent=`Online saves ${money(savings)} versus the local Aruba price entered.`; }
+          else { card.className='metric bad'; textEl.textContent='Buy locally / review'; noteEl.textContent=`Local is cheaper by ${money(Math.abs(savings))}, or the difference is not worth the import/pickup uncertainty.`; }
+        }
+        const missingCombinedLocal=(amazonOnlineActive && amazonLocal<=0) || (sheinOnlineActive && sheinLocal<=0);
+        setDecisionBox(el.combinedDecisionCard,el.combinedDecisionText,el.combinedDecisionNote,localTotal,r.total,'combined online order',missingCombinedLocal && localTotal>0);
+        setDecisionBox(el.amazonDecisionCard,el.amazonDecisionText,el.amazonDecisionNote,amazonLocal,r.amazonAllIn,'Amazon order',false);
+        setDecisionBox(el.sheinDecisionCard,el.sheinDecisionText,el.sheinDecisionNote,sheinLocal,r.sheinAllIn,'SHEIN order',false);
+        if(localTotal>0 && !(missingCombinedLocal && localTotal>0)){const savings=localTotal-r.total;el.decisionPill.textContent=savings>0?'Online combined order is cheaper':'Buy locally / review';el.decisionPill.className='result-pill '+(savings>0?'pill-good':'pill-bad')}
+        else if(localTotal>0 && missingCombinedLocal){el.decisionPill.textContent='Partial local comparison';el.decisionPill.className='result-pill pill-warn'}
+        else{el.decisionPill.textContent=r.combined?'Combined mode':'Separate mode';el.decisionPill.className='result-pill'}
+        const br=(a,b)=>`<tr><td>${a}</td><td>${b}</td></tr>`;el.breakdownRows.innerHTML=[br('Calculation mode',r.combined?'Amazon + SHEIN combined GP Cargo shipment':'Amazon and SHEIN calculated as separate GP shipments'),br('Total product value Amazon (USD)',usd(supplierSubtotal('amazon'))),br('Total product value SHEIN (USD)',usd(supplierSubtotal('shein'))),br('Supplier payments used',money(r.supplierTotal)),br('GP Cargo charge mode',r.freight.mode),br('Estimated package volume',cftFmt(r.freight.cft||0)),br('GP freight rule',esc(r.freight.chargeRule||'')),br('GP customs clearing rule',esc(r.freight.clearanceRule||'')),br('DTZ handling rule',esc(r.freight.dtzRule||'')),br('GP ocean/freight charge',money(r.freight.oceanAwg||0)),br('GP customs clearing',money(r.freight.clearanceAwg||0)),br('DTZ handling fee',money(r.freight.dtzAwg||0)),br('7% tax on GP taxable services',money(r.freight.serviceTax||0)),br('GP Cargo pickup estimate',money(r.freight.serviceTotal||0)),br('Rounded Customs value',money(r.customs.customsValueTotal||0)),br('Import duties',money(r.customs.dutyTotal||0)),br('BBO/BAVP at 4%',money(r.customs.bboTotal||0)),br('BAZV at 3%',money(r.customs.bazTotal||0)),br('<strong>Total all-in Aruba cost</strong>','<strong>'+money(r.total)+'</strong>')].join('');
+        el.itemResultRows.innerHTML=(r.rows||[]).map(row=>`<tr><td>${row.source==='amazon'?'Amazon':'SHEIN'}</td><td>${esc(row.item.name||'Item')}</td><td>${usd(n(row.item.usd)*Math.max(1,n(row.item.qty)||1))}</td><td>${esc(row.d.label)} ${row.d.dtz?'<span class="tag warn">DTZ</span>':''}</td><td>${pct(row.d.rate)}</td><td>${money(row.customsValue)}</td><td>${money(row.duty)}</td><td>${money(row.bbo)}</td><td>${money(row.baz)}</td><td>${money(row.total)}</td></tr>`).join('')||'<tr><td colspan="10">No products entered.</td></tr>';
+        el.settingsRuleNote.textContent=`Current estimate: ${r.freight.mode}; ${r.freight.chargeRule}. ${r.freight.clearanceRule}. ${r.freight.dtzRule}`;saveState();renderPackages();}
+      function setStatus(which,msg,type){const target=which==='amazon'?el.amazonImportStatus:el.sheinImportStatus;target.textContent=msg;target.className='cart-status '+(type||'')}
+      function renderAll(){applyState();renderResults()}
+      function switchTab(tab,silent){state.activeTab=tab;el.tabBtns.forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));el.amazonPanel.classList.toggle('active',tab==='amazon');el.sheinPanel.classList.toggle('active',tab==='shein');el.settingsPanel.classList.toggle('active',tab==='settings');if(!silent)saveState()}
+      function syncLocalPriceInputs(target){
+        if(!target) return;
+        if(target.id==='decisionAmazonLocalAwg' && el.amazonLocalAwg) el.amazonLocalAwg.value = target.value;
+        if(target.id==='amazonLocalAwg' && el.decisionAmazonLocalAwg) el.decisionAmazonLocalAwg.value = target.value;
+        if(target.id==='decisionSheinLocalAwg' && el.sheinLocalAwg) el.sheinLocalAwg.value = target.value;
+        if(target.id==='sheinLocalAwg' && el.decisionSheinLocalAwg) el.decisionSheinLocalAwg.value = target.value;
+      }
+      function recalcFromCurrentInputs(target){
+        syncLocalPriceInputs(target);
+        readState();
+        renderResults();
+      }
+      function bind(){
+        el.tabBtns.forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
+        document.addEventListener('input',e=>{if(e.target.matches('input,textarea'))recalcFromCurrentInputs(e.target)});
+        document.addEventListener('change',e=>{if(e.target.matches('select,input[type="checkbox"]'))recalcFromCurrentInputs(e.target)});
+        document.addEventListener('click',e=>{if(e.target.classList.contains('add-row')){readState();const src=e.target.dataset.source;state[src].items.push({name:src==='amazon'?'Amazon item':'SHEIN item',lookup:'',category:src==='shein'?'clothing':'manual12',qty:1,usd:0,suggestion:''});renderAll()}if(e.target.classList.contains('remove-row')){readState();const card=e.target.closest('.product-card');const src=card.dataset.source;const idx=Number(card.dataset.index);state[src].items.splice(idx,1);renderAll()}if(e.target.classList.contains('suggest-row')){readState();const card=e.target.closest('.product-card');const src=card.dataset.source;const idx=Number(card.dataset.index);const item=state[src].items[idx];const result=classify(item.lookup||item.name,src);const d=dutyFor(result.key);item.category=result.key;const name=titleCase(item.lookup||item.name);if(name)item.name=name;item.suggestion=`${categoryChargesText(d)} Confidence: ${result.confidence}%. ${result.reason} Review before relying on the estimate.`;renderAll()}if(e.target.classList.contains('remove-package')){readState();const idx=Number(e.target.closest('.manual-package-card').dataset.index);state.packages.splice(idx,1);if(!state.packages.length)state.packages=[{qty:1,length:12,width:10,height:6}];renderAll()}});
+        el.importAmazonBtn.addEventListener('click',()=>{const parsed=parseAmazonCartText(el.amazonTextInput.value);if(!parsed.items.length){setStatus('amazon','No Amazon items found. Paste the checkout text or enter lines manually.','warn');return}state.amazon.items=parsed.items;state.amazon.shipUsd=Number(parsed.shipUsd||0).toFixed(2);state.amazon.taxUsd=Number(parsed.taxUsd||0).toFixed(2);state.amazon.exactAwg=Number(parsed.exactAwg||0).toFixed(2);state.amazon.freeShipping=!!parsed.freeShipping;setStatus('amazon',`Imported ${parsed.items.length} Amazon item${parsed.items.length===1?'':'s'}${parsed.exactAwg?'; exact AWG total '+money(parsed.exactAwg):''}. Review categories before relying on result.`,'good');renderAll()});
+        el.importSheinBtn.addEventListener('click',()=>{const parsed=parseSheinText(el.sheinTextInput.value);if(!parsed.items.length){setStatus('shein','No SHEIN items found. Paste the invoice text or enter lines manually.','warn');return}state.shein.items=parsed.items;state.shein.shipUsd=Number(parsed.shipUsd||0).toFixed(2);state.shein.handlingUsd=Number(parsed.handlingUsd||0).toFixed(2);state.shein.taxUsd=Number(parsed.taxUsd||0).toFixed(2);setStatus('shein',`Imported ${parsed.items.length} SHEIN line${parsed.items.length===1?'':'s'}${parsed.grandUsd?'; invoice grand total USD '+parsed.grandUsd.toFixed(2):''}. SHEIN clothing defaults to 6%. Review categories before relying on result.`,'good');renderAll()});
+        el.clearAmazonTextBtn.addEventListener('click',()=>{el.amazonTextInput.value='';setStatus('amazon','Amazon text cleared.','')});el.clearSheinTextBtn.addEventListener('click',()=>{el.sheinTextInput.value='';setStatus('shein','SHEIN text cleared.','')});
+        el.addPackageBtn.addEventListener('click',()=>{readState();state.packages.push({qty:1,length:12,width:10,height:6});renderAll()});
+        el.loadRecentInvoiceBtn.addEventListener('click',()=>{state=clone(IPHONE_SHEIN_EXAMPLE);setStatus('amazon','Loaded example: two renewed iPhones from Amazon.','good');setStatus('shein','Loaded example: SHEIN girls clothing invoice.','good');renderAll()});
+        el.loadAmazonCartBtn.addEventListener('click',()=>{state=clone(AMAZON_CART_EXAMPLE);setStatus('amazon','Loaded prior Amazon cart example.','good');setStatus('shein','No SHEIN items in this example.','');renderAll()});
+        el.clearAllBtn.addEventListener('click',()=>{state=clone(DEFAULT_STATE);setStatus('amazon','Cleared.','');setStatus('shein','Cleared.','');renderAll()});
+      }
+      bind();renderAll();
+    })();
+  </script>
+</body>
+</html>
