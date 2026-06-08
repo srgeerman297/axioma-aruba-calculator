@@ -2,14 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>AXIOMA | Amazon & SHEIN Aruba All-In Cost Calculator</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- iOS / Safari PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AXIOMA" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+  <!-- Theme colour for Android Chrome -->
+  <meta name="theme-color" content="#0A4FB4" />
+
+  <!-- Standard favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
   <style>
     :root{
       --blue:#0A4FB4;--blue-dark:#073B88;--blue-soft:#EAF2FF;--bg:#F4F7FC;--card:#fff;--soft:#F8FBFF;--text:#14243A;--muted:#66758A;--line:#DCE7F5;--green:#137A43;--green-soft:#EAF7EF;--red:#B42318;--red-soft:#FDECEC;--amber:#966800;--amber-soft:#FFF7E3;--purple:#6B3AB8;--purple-soft:#F2ECFF;--shadow:0 18px 44px rgba(10,79,180,.12);--radius-xl:28px;--radius-lg:20px;--radius-md:14px
     }
     *{box-sizing:border-box} html,body{margin:0;padding:0}
-    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(10,79,180,.12),transparent 28%),linear-gradient(180deg,#FCFDFF 0%,#EFF5FF 100%);min-height:100vh}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(10,79,180,.12),transparent 28%),linear-gradient(180deg,#FCFDFF 0%,#EFF5FF 100%);min-height:100vh;padding-top:env(safe-area-inset-top);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);padding-bottom:env(safe-area-inset-bottom)}
     .page{max-width:1280px;margin:0 auto;padding:28px 18px 56px}
     .hero{position:relative;overflow:hidden;color:white;background:linear-gradient(135deg,var(--blue) 0%,#0B65D4 100%);border-radius:var(--radius-xl);padding:30px;box-shadow:var(--shadow);margin-bottom:22px}
     .hero:before,.hero:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.10);pointer-events:none}.hero:before{width:300px;height:300px;top:-130px;right:-58px}.hero:after{width:190px;height:190px;bottom:-74px;right:245px}.hero-content{position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}h1{margin:14px 0 10px;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-.035em}.hero p{max-width:980px;margin:0;color:rgba(255,255,255,.88);line-height:1.62;font-size:16px}.hero-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:24px}.hero-stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:14px}.hero-stat .k{font-size:12px;color:rgba(255,255,255,.74)}.hero-stat .v{font-size:22px;font-weight:850;margin-top:4px}
@@ -471,6 +486,17 @@
       }
       bind();renderAll();
     })();
+  </script>
+
+  <!-- PWA service worker registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('AXIOMA SW registered:', reg.scope))
+          .catch(err => console.warn('AXIOMA SW registration failed:', err));
+      });
+    }
   </script>
 </body>
 </html>
