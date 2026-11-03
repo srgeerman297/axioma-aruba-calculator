@@ -1,5 +1,5 @@
 // AXIOMA Service Worker — offline-first caching
-const CACHE_NAME = 'axioma-v1';
+const CACHE_NAME = 'axioma-v2';
 const ASSETS = [
   '/axioma-aruba-calculator/',
   '/axioma-aruba-calculator/index.html',
