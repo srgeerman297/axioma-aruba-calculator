@@ -4,7 +4,7 @@ Shared rules for every coding agent in this repo. Claude Code reads them through
 
 ## Project
 
-Static PWA comparing Aruba and online prices, including customs duties and shipping. There is no build step and no test suite. All app code is in `index.html`; `sw.js` handles offline caching. It is served from the `/axioma-aruba-calculator/` path.
+Static PWA comparing Aruba and online prices, including customs duties and shipping. There is no build step. Run the tests with `node tests/calc.test.mjs`. All app code is in `index.html`; `sw.js` handles offline caching. It is served from the `/axioma-aruba-calculator/` path.
 
 ## Who owns what
 
